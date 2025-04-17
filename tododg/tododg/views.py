@@ -17,9 +17,15 @@ def signup(request):
     return render(request, 'signup.html')
 
 
-def login(requset):
+def loginn(requset):
     if requset.method == 'POST':
         fnm=requset.POST.get('fnm')
         pwd=requset.POST.get('pwd')
         print(fnm, pwd)
         userr=authenticate(requset,username=fnm,password=pwd)
+        if userr is not None:
+            login(requset, userr)
+            return redirect('/todopage')
+        else:
+            redirect('/loginn')
+    return render(requset, 'loginn.html')
